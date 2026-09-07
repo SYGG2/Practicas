@@ -1,0 +1,39 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    double A, B, C, D, E, F;
+
+    cout << "Ingrese los coeficientes de la primera ecuacion (A x + B y = C):" << endl;
+    cout << "A: ";
+    cin >> A;
+    cout << "B: ";
+    cin >> B;
+    cout << "C: ";
+    cin >> C;
+
+    cout << "Ingrese los coeficientes de la segunda ecuacion (D x + E y = F):" << endl;
+    cout << "D: ";
+    cin >> D;
+    cout << "E: ";
+    cin >> E;
+    cout << "F: ";
+    cin >> F;
+
+    double determinante = (A * E) - (B * D);
+
+    if (determinante == 0) {
+        cout << "Error: El sistema no tiene solucion unica (el determinante es igual a cero)." << endl;
+        return 1;
+    }
+
+    double x = ((C * E) - (B * F)) / determinante;
+    double y = ((A * F) - (C * D)) / determinante;
+
+    cout << "RESULTADO DEL SISTEMA" << endl;
+    cout << "x = " << x << endl;
+    cout << "y = " << y << endl;
+
+    return 0;
+}
