@@ -1,0 +1,34 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int main() {
+    double C, T;
+    int N;
+
+    cout << "Ingrese el capital prestado (C): ";
+    cin >> C;
+
+    cout << "Ingrese la tasa de interes mensual (ejemplo: 0.02 para 2%): ";
+    cin >> T;
+
+    cout << "Ingrese el numero de cuotas (N): ";
+    cin >> N;
+
+    if (C <= 0 || T <= 0 || N <= 0) {
+        cout << "Error: Todos los valores deben ser mayores a cero." << endl;
+        return 1;
+    }
+
+    double cuota_mensual = C * (T * pow(1 + T, N)) / (pow(1 + T, N) - 1);
+    double monto_total = cuota_mensual * N;
+    double interes_total = monto_total - C;
+
+    cout << "RESULTADO DEL CREDITO" << endl;
+    cout << "Cuota mensual: " << cuota_mensual << endl;
+    cout << "Monto total a pagar: " << monto_total << endl;
+    cout << "Interes total: " << interes_total << endl;
+
+    return 0;
+}
