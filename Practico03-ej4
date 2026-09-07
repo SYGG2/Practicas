@@ -1,0 +1,38 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main() {
+    string nombre;
+    double salario;
+    int meses;
+
+    cout << "Ingrese el nombre del trabajador: ";
+    getline(cin, nombre);
+
+    cout << "Ingrese el salario mensual (Bs.): ";
+    cin >> salario;
+
+    cout << "Ingrese los meses trabajados en el ano (1-12): ";
+    cin >> meses;
+
+    if (salario <= 0 || meses < 1 || meses > 12) {
+        cout << "Error: El salario debe ser positivo y los meses deben estar entre 1 y 12." << endl;
+        return 1;
+    }
+
+    if (meses < 3) {
+        cout << "El trabajador " << nombre << " no cumple con el minimo de 3 meses trabajados para percibir aguinaldo." << endl;
+        return 0;
+    }
+
+    double aguinaldo = (salario * meses) / 12.0;
+
+    cout << "RESULTADO DEL AGUINALDO" << endl;
+    cout << "Trabajador: " << nombre << endl;
+    cout << "Meses calculados: " << meses << endl;
+    cout << "Monto a pagar: " << aguinaldo << " Bs." << endl;
+
+    return 0;
+}
