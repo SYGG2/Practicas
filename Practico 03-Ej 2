@@ -1,0 +1,36 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int main() {
+    // Declaración de variables
+    double R, H;
+    const double PI = 3.14159265358979323846;
+
+    // Entrada de datos
+    cout << "Ingrese el radio del cilindro (R): ";
+    cin >> R;
+
+    cout << "Ingrese la altura del cilindro (H): ";
+    cin >> H;
+
+    // Validación de entrada
+    if (R <= 0 || H <= 0) {
+        cout << "Error: El radio y la altura deben ser valores mayores a cero." << endl;
+        return 1;
+    }
+
+    // Cálculos según las fórmulas
+    double area_lateral = 2 * PI * R * H;
+    double area_total = 2 * PI * R * (R + H);
+    double volumen = PI * pow(R, 2) * H;
+
+    // Mostrar resultados
+    cout << "\n--- RESULTADOS ---" << endl;
+    cout << "Área lateral: " << area_lateral << endl;
+    cout << "Área total:   " << area_total << endl;
+    cout << "Volumen:      " << volumen << endl;
+
+    return 0;
+}
