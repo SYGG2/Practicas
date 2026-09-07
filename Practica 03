@@ -1,0 +1,49 @@
+**a) Preparar una taza de té**
+
+1. Hervir agua en una caldera o jarra eléctrica.
+2. Colocar una bolsa de té (o hojas de té) dentro de una taza limpia.
+3. Verter el agua caliente en la taza sobre la bolsa de té.
+4. Dejar reposar durante 3 a 5 minutos para infundir.
+5. Retirar la bolsa de té.
+6. Si el usuario desea azúcar o edulcorante, agregarlo y mezclar bien.
+7. Servir el té listo para tomar.
+
+---
+
+**b) Retirar dinero de un cajero automático**
+
+1. Insertar o acercar la tarjeta de débito/crédito en el cajero automático.
+2. Seleccionar el idioma (si el cajero lo requiere).
+3. Ingresar el código PIN de seguridad.
+4. Si el PIN es incorrecto, mostrar mensaje de error y volver al paso 3 (o cancelar tras 3 intentos).
+5. Seleccionar la opción "Retiro de efectivo".
+6. Elegir el tipo de cuenta (caja de ahorro o cuenta corriente) y la moneda si aplica.
+7. Ingresar el monto exacto a retirar.
+8. Si el saldo es insuficiente o supera el límite diario, mostrar mensaje y solicitar otro monto o cancelar.
+9. El cajero procesa la transacción y entrega el dinero en efectivo.
+10. Tomar el dinero, el recibo (si se solicitó) y retirar la tarjeta.
+
+---
+
+**c) Resolver la ecuación cuadrática ($ax^2 + bx + c = 0$)**
+
+1. Solicitar e ingresar los coeficientes $a$, $b$ y $c$.
+2. Verificar si $a = 0$:
+* Si $a = 0$, informar que no es una ecuación cuadrática (es de primer grado) y terminar.
+
+
+3. Calcular el discriminante: $\Delta = b^2 - 4ac$.
+4. Evaluar el valor de $\Delta$:
+* **Si $\Delta > 0$:** Calcular dos soluciones reales distintas:
+* $x_1 = \frac{-b + \sqrt{\Delta}}{2a}$
+* $x_2 = \frac{-b - \sqrt{\Delta}}{2a}$
+
+
+* **Si $\Delta = 0$:** Calcular una única solución real (raíz doble):
+* $x_1 = x_2 = \frac{-b}{2a}$
+
+
+* **Si $\Delta < 0$:** Determinar que no existen soluciones reales (las soluciones son complejas conjugadas).
+
+
+5. Mostrar los resultados obtenidos según el caso correspondiente.
