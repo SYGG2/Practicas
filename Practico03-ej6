@@ -1,0 +1,26 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    double celsius;
+
+    cout << "Ingrese la temperatura en grados Celsius: ";
+    cin >> celsius;
+
+    if (celsius < -273.15) {
+        cout << "Error: La temperatura no puede ser menor al cero absoluto (-273.15 C)." << endl;
+        return 1;
+    }
+
+    double fahrenheit = (celsius * 9.0 / 5.0) + 32.0;
+    double kelvin = celsius + 273.15;
+    double rankine = (celsius + 273.15) * 9.0 / 5.0;
+
+    cout << "CONVERSION DE TEMPERATURA" << endl;
+    cout << "Fahrenheit: " << fahrenheit << " °F" << endl;
+    cout << "Kelvin:     " << kelvin << " K" << endl;
+    cout << "Rankine:    " << rankine << " °Ra" << endl;
+
+    return 0;
+}
