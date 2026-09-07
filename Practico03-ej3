@@ -1,0 +1,46 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    // Declaración de variables
+    double parcial1, parcial2, examen_final, proyecto;
+    
+    // Entrada de datos
+    cout << "Ingrese la nota del Parcial 1 (0-25): ";
+    cin >> parcial1;
+    
+    cout << "Ingrese la nota del Parcial 2 (0-25): ";
+    cin >> parcial2;
+    
+    cout << "Ingrese la nota del Examen Final (0-30): ";
+    cin >> examen_final;
+    
+    cout << "Ingrese la nota del Proyecto Integrador (0-20): ";
+    cin >> proyecto;
+
+    // Validación de límites de las notas
+    if (parcial1 < 0 || parcial1 > 25 ||
+        parcial2 < 0 || parcial2 > 25 ||
+        examen_final < 0 || examen_final > 30 ||
+        proyecto < 0 || proyecto > 20) {
+        
+        cout << "Error: Una o mas notas ingresadas estan fuera del rango permitido." << endl;
+        return 1;
+    }
+
+    // Cálculo de la nota final
+    double nota_final = parcial1 + parcial2 + examen_final + proyecto;
+
+    // Resultados
+    cout << "RESULTADO DE EVALUACION" << endl;
+    cout << "Nota Final: " << nota_final << " / 100" << endl;
+
+    if (nota_final >= 51) {
+        cout << "Estado: APROBADO" << endl;
+    } else {
+        cout << "Estado: REPROBADO" << endl;
+    }
+
+    return 0;
+}
