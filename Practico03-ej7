@@ -1,0 +1,32 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int main() {
+    double C, T;
+    int N;
+
+    cout << "Ingrese el capital inicial (C): ";
+    cin >> C;
+
+    cout << "Ingrese la tasa de interes anual en porcentaje (T): ";
+    cin >> T;
+
+    cout << "Ingrese el plazo en anos (N): ";
+    cin >> N;
+
+    if (C <= 0 || T <= 0 || N <= 0) {
+        cout << "Error: Todos los valores deben ser mayores a cero." << endl;
+        return 1;
+    }
+
+    double M = C * pow(1 + (T / 12.0 / 100.0), N * 12);
+    double G = M - C;
+
+    cout << "RESULTADO DE LA INVERSION" << endl;
+    cout << "Monto acumulado (M): " << M << endl;
+    cout << "Ganancia neta (G):    " << G << endl;
+
+    return 0;
+}
