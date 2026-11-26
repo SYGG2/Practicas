@@ -1,0 +1,25 @@
+#include <iostream>
+using namespace std;
+
+void SISTEMA(float a, float b, float c, float d, float e, float f, float &x, float &y) {
+    float det = a * e - b * d;
+    if (det != 0) {
+        x = (b * f - c * e) / det;
+        y = (c * d - a * f) / det;
+    } else {
+        x = 0;
+        y = 0;
+    }
+}
+
+int main() {
+    float a, b, c, d, e, f, x, y;
+    cout << "Ingrese A, B, C: ";
+    cin >> a >> b >> c;
+    cout << "Ingrese D, E, F: ";
+    cin >> d >> e >> f;
+    
+    SISTEMA(a, b, c, d, e, f, x, y);
+    cout << "X = " << x << ", Y = " << y << endl;
+    return 0;
+}
