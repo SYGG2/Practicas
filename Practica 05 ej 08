@@ -1,0 +1,27 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int n, d, pares = 0, suma = 0, minSuma;
+    cout << "Ingrese el codigo numerico: ";
+    cin >> n;
+    cout << "Ingrese el valor minimo de suma requerido: ";
+    cin >> minSuma;
+    
+    while (n > 0) {
+        d = n % 10;
+        suma = suma + d;
+        if (d % 2 == 0) {
+            pares++;
+        }
+        n = n / 10;
+    }
+    
+    if (pares >= 2 && suma > minSuma) {
+        cout << "Codigo seguro." << endl;
+    } else {
+        cout << "Codigo inseguro." << endl;
+    }
+    
+    return 0;
+}
