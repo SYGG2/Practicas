@@ -1,0 +1,23 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int n, aux, d, inv = 0;
+    cout << "Ingrese un numero: ";
+    cin >> n;
+    
+    aux = n;
+    while (aux > 0) {
+        d = aux % 10;
+        inv = (inv * 10) + d;
+        aux = aux / 10;
+    }
+    
+    if (n == inv) {
+        cout << "El numero es capicua." << endl;
+    } else {
+        cout << "El numero no es capicua." << endl;
+    }
+    
+    return 0;
+}
