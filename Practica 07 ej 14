@@ -1,0 +1,45 @@
+#include <iostream>
+using namespace std;
+
+bool esBisiesto(int a) {
+    return (a % 4 == 0 && a % 100 != 0) || (a % 400 == 0);
+}
+
+int diasMes(int m, int a) {
+    if (m == 4 || m == 6 || m == 9 || m == 11) return 30;
+    if (m == 2) return esBisiesto(a) ? 29 : 28;
+    return 31;
+}
+
+int totalDiasDesdeInicio(int d, int m, int a) {
+    int total = 0;
+    for (int i = 1; i < a; i++) {
+        total += esBisiesto(i) ? 366 : 365;
+    }
+    for (int i = 1; i < m; i++) {
+        total += diasMes(i, a);
+    }
+    total += d;
+    return total;
+}
+
+void diasEntreFechas(int d1, int m1, int a1, int d2, int m2, int a2) {
+    int f1 = totalDiasDesdeInicio(d1, m1, a1);
+    int f2 = totalDiasDesdeInicio(d2, m2, a2);
+    
+    int diferencia = f1 - f2;
+    if (diferencia < 0) diferencia = -diferencia;
+
+    cout << "Dias transcurridos: " << diferencia << endl;
+}
+
+int main() {
+    int d1, m1, a1, d2, m2, a2;
+    cout << "Fecha 1 (dia mes anio): ";
+    cin >> d1 >> m1 >> a1;
+    cout << "Fecha 2 (dia mes anio): ";
+    cin >> d2 >> m2 >> a2;
+
+    diasEntreFechas(d1, m1, a1, d2, m2, a2);
+    return 0;
+}
