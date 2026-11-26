@@ -1,0 +1,56 @@
+#include <iostream>
+using namespace std;
+
+int leerTamano();
+void leerVector(double v[], int n);
+void mostrarVector(double v[], int n);
+double calcularPromedio(double v[], int n);
+
+int main() {
+    double v[100];
+    int n = leerTamano();
+    leerVector(v, n);
+
+    cout << "\nVector ingresado: ";
+    mostrarVector(v, n);
+
+    double promedio = calcularPromedio(v, n);
+    cout << "El promedio es: " << promedio << endl;
+
+    return 0;
+}
+
+int leerTamano() {
+    int n;
+    do {
+        cout << "Cantidad de numeros (1 a 100): ";
+        cin >> n;
+        if (n < 1 || n > 100) {
+            cout << "Cantidad no valida, intente de nuevo." << endl;
+        }
+    } while (n < 1 || n > 100);
+    return n;
+}
+
+void leerVector(double v[], int n) {
+    for (int i = 0; i < n; i++) {
+        cout << "Numero " << i + 1 << ": ";
+        cin >> v[i];
+    }
+}
+
+void mostrarVector(double v[], int n) {
+    for (int i = 0; i < n; i++) {
+        cout << v[i] << " ";
+    }
+    cout << endl;
+}
+
+// Suma todos los elementos y divide entre la cantidad
+double calcularPromedio(double v[], int n) {
+    double suma = 0;
+    for (int i = 0; i < n; i++) {
+        suma = suma + v[i];
+    }
+    return suma / n;
+}
