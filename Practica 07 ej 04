@@ -1,0 +1,29 @@
+#include <iostream>
+using namespace std;
+
+float POTEN(float x, int y) {
+    float p = 1;
+    for (int i = 1; i <= y; i++) p = p * x;
+    return p;
+}
+
+long long FAC(int n) {
+    long long f = 1;
+    for (int i = 1; i <= n; i++) f = f * i;
+    return f;
+}
+
+int main() {
+    int x, n, signo = 1;
+    float s = 0;
+    cout << "Ingrese X y N (enteros positivos): ";
+    cin >> x >> n;
+
+    for (int i = 1; i <= n; i += 2) {
+        s = s + signo * (POTEN(x, i) / FAC(i));
+        signo = signo * -1;
+    }
+
+    cout << "La suma de la serie es: " << s << endl;
+    return 0;
+}
