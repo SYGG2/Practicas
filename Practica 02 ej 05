@@ -1,0 +1,17 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int cantidad;
+    float total;
+    const float PRECIO_CUADERNO = 12.0;
+
+    cout << "Ingrese la cantidad de cuadernos a comprar: ";
+    cin >> cantidad;
+
+    total = cantidad * PRECIO_CUADERNO;
+
+    cout << "El total a pagar es: " << total << " Bs" << endl;
+
+    return 0;
+}
