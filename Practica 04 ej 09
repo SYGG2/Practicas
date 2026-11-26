@@ -1,0 +1,21 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int n, signo = 1;
+    float x, s = 0, pot = 1, fac = 1;
+    cout << "Ingrese X: ";
+    cin >> x;
+    cout << "Ingrese N: ";
+    cin >> n;
+    
+    for (int i = 1; i <= n; i++) {
+        pot = pot * x;
+        fac = fac * i;
+        s = s + signo * (pot / fac);
+        signo = signo * -1;
+    }
+    
+    cout << "El resultado es: " << s << endl;
+    return 0;
+}
