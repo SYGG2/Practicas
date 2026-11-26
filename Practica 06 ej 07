@@ -1,0 +1,28 @@
+#include <iostream>
+using namespace std;
+
+void resolverSistema(float a, float b, float c, float d, float e, float f) {
+    float det = a * e - b * d;
+    if (det != 0) {
+        float x = (c * e - b * f) / det;
+        float y = (a * f - c * d) / det;
+        cout << "Solucion unica: X = " << x << ", Y = " << y << endl;
+    } else {
+        if (a * f == c * d && b * f == c * e) {
+            cout << "El sistema tiene infinitas soluciones." << endl;
+        } else {
+            cout << "El sistema no tiene solucion." << endl;
+        }
+    }
+}
+
+int main() {
+    float a, b, c, d, e, f;
+    cout << "Ecuacion 1 (aX + bY = c). Ingrese a, b, c: ";
+    cin >> a >> b >> c;
+    cout << "Ecuacion 2 (dX + eY = f). Ingrese d, e, f: ";
+    cin >> d >> e >> f;
+    
+    resolverSistema(a, b, c, d, e, f);
+    return 0;
+}
