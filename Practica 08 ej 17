@@ -1,0 +1,46 @@
+#include <iostream>
+using namespace std;
+
+int leerCantidad();
+void generarFibonacci(int fib[], int n);
+void mostrarSerie(int fib[], int n);
+
+int main() {
+    int fib[47];
+    int n = leerCantidad();
+
+    generarFibonacci(fib, n);
+    mostrarSerie(fib, n);
+
+    return 0;
+}
+
+int leerCantidad() {
+    int n;
+    do {
+        cout << "Cuantos terminos desea generar (1 a 47): ";
+        cin >> n;
+        if (n < 1 || n > 47) {
+            cout << "Cantidad no valida, intente de nuevo." << endl;
+        }
+    } while (n < 1 || n > 47);
+    return n;
+}
+
+void generarFibonacci(int fib[], int n) {
+    fib[0] = 0;
+    if (n > 1) {
+        fib[1] = 1;
+    }
+    for (int i = 2; i < n; i++) {
+        fib[i] = fib[i - 1] + fib[i - 2];
+    }
+}
+
+void mostrarSerie(int fib[], int n) {
+    cout << "\nPrimeros " << n << " terminos de Fibonacci:" << endl;
+    for (int i = 0; i < n; i++) {
+        cout << fib[i] << " ";
+    }
+    cout << endl;
+}
