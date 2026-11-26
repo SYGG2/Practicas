@@ -1,0 +1,16 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    long long p = 1;
+    cout << "Ingrese N: ";
+    cin >> n;
+    
+    for (int i = 1; i <= n; i++) {
+        p = p * i;
+    }
+    
+    cout << "El producto es: " << p << endl;
+    return 0;
+}
