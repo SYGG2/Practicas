@@ -1,0 +1,70 @@
+#include <iostream>
+using namespace std;
+
+int leerTamano();
+void leerVector(double v[], int n);
+void mostrarVector(double v[], int n);
+void contarSignos(double v[], int n, int &positivos, int &negativos, int &ceros);
+void mostrarConteos(int positivos, int negativos, int ceros);
+
+int main() {
+    double v[100];
+    int n = leerTamano();
+    leerVector(v, n);
+
+    cout << "\nVector: ";
+    mostrarVector(v, n);
+
+    int positivos, negativos, ceros;
+    contarSignos(v, n, positivos, negativos, ceros);
+    mostrarConteos(positivos, negativos, ceros);
+
+    return 0;
+}
+
+int leerTamano() {
+    int n;
+    do {
+        cout << "Cantidad de elementos (1 a 100): ";
+        cin >> n;
+        if (n < 1 || n > 100) {
+            cout << "Cantidad no valida, intente de nuevo." << endl;
+        }
+    } while (n < 1 || n > 100);
+    return n;
+}
+
+void leerVector(double v[], int n) {
+    for (int i = 0; i < n; i++) {
+        cout << "Elemento [" << i << "]: ";
+        cin >> v[i];
+    }
+}
+
+void mostrarVector(double v[], int n) {
+    for (int i = 0; i < n; i++) {
+        cout << v[i] << " ";
+    }
+    cout << endl;
+}
+
+void contarSignos(double v[], int n, int &positivos, int &negativos, int &ceros) {
+    positivos = 0;
+    negativos = 0;
+    ceros = 0;
+    for (int i = 0; i < n; i++) {
+        if (v[i] > 0) {
+            positivos++;
+        } else if (v[i] < 0) {
+            negativos++;
+        } else {
+            ceros++;
+        }
+    }
+}
+
+void mostrarConteos(int positivos, int negativos, int ceros) {
+    cout << "Positivos: " << positivos << endl;
+    cout << "Negativos: " << negativos << endl;
+    cout << "Ceros: " << ceros << endl;
+}
