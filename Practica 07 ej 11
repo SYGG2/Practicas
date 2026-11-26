@@ -1,0 +1,102 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+string convertirMenorMil(int n) {
+    string texto = "";
+    if (n == 100) return "cien";
+
+    int c = n / 100;
+    int d = (n % 100) / 10;
+    int u = n % 10;
+
+    if (c == 1) texto += "ciento ";
+    else if (c == 2) texto += "doscientos ";
+    else if (c == 3) texto += "trescientos ";
+    else if (c == 4) texto += "cuatrocientos ";
+    else if (c == 5) texto += "quinientos ";
+    else if (c == 6) texto += "seiscientos ";
+    else if (c == 7) texto += "setecientos ";
+    else if (c == 8) texto += "ochocientos ";
+    else if (c == 9) texto += "novecientos ";
+
+    int decenaUnidad = n % 100;
+    if (decenaUnidad >= 10 && decenaUnidad <= 29) {
+        if (decenaUnidad == 10) texto += "diez";
+        else if (decenaUnidad == 11) texto += "once";
+        else if (decenaUnidad == 12) texto += "doce";
+        else if (decenaUnidad == 13) texto += "trece";
+        else if (decenaUnidad == 14) texto += "catorce";
+        else if (decenaUnidad == 15) texto += "quince";
+        else if (decenaUnidad == 16) texto += "dieciseis";
+        else if (decenaUnidad == 17) texto += "diecisiete";
+        else if (decenaUnidad == 18) texto += "dieciocho";
+        else if (decenaUnidad == 19) texto += "diecinueve";
+        else if (decenaUnidad == 20) texto += "veinte";
+        else if (decenaUnidad == 21) texto += "veintiuno";
+        else if (decenaUnidad == 22) texto += "veintidos";
+        else if (decenaUnidad == 23) texto += "veintitres";
+        else if (decenaUnidad == 24) texto += "veinticuatro";
+        else if (decenaUnidad == 25) texto += "veinticinco";
+        else if (decenaUnidad == 26) texto += "veintiseis";
+        else if (decenaUnidad == 27) texto += "veintisiete";
+        else if (decenaUnidad == 28) texto += "veintiocho";
+        else if (decenaUnidad == 29) texto += "veintinueve";
+        return texto;
+    }
+
+    if (d == 3) texto += "treinta";
+    else if (d == 4) texto += "cuarenta";
+    else if (d == 5) texto += "cincuenta";
+    else if (d == 6) texto += "sesenta";
+    else if (d == 7) texto += "setenta";
+    else if (d == 8) texto += "ochenta";
+    else if (d == 9) texto += "noventa";
+
+    if (d >= 3 && u > 0) texto += " y ";
+
+    if (u == 1) texto += "uno";
+    else if (u == 2) texto += "dos";
+    else if (u == 3) texto += "tres";
+    else if (u == 4) texto += "cuatro";
+    else if (u == 5) texto += "cinco";
+    else if (u == 6) texto += "seis";
+    else if (u == 7) texto += "siete";
+    else if (u == 8) texto += "ocho";
+    else if (u == 9) texto += "nueve";
+
+    return texto;
+}
+
+string montoALiteral(double r) {
+    int entero = (int)r;
+    int centavos = (int)((r - entero) * 100 + 0.5); 
+
+    string resultado = "";
+    int miles = entero / 1000;
+    int resto = entero % 1000;
+
+    if (entero == 0) {
+        resultado = "cero";
+    } else {
+        if (miles == 1) resultado += "un mil ";
+        else if (miles > 1) resultado += convertirMenorMil(miles) + " mil ";
+
+        if (resto > 0) resultado += convertirMenorMil(resto);
+    }
+
+    if (resultado[resultado.length() - 1] == ' ') {
+        resultado.erase(resultado.length() - 1);
+    }
+
+    string strCentavos = (centavos < 10 ? "0" : "") + to_string(centavos);
+    return resultado + " " + strCentavos + "/100 bolivianos";
+}
+
+int main() {
+    double monto;
+    cout << "Ingrese monto (ej. 1560.50): ";
+    cin >> monto;
+    cout << montoALiteral(monto) << endl;
+    return 0;
+}
