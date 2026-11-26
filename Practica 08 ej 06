@@ -1,0 +1,56 @@
+#include <iostream>
+using namespace std;
+
+int leerTamano();
+void leerVector(double a[], int n);
+void mostrarVector(double v[], int n);
+void promediosDeTres(double a[], int n, double p[]);
+
+int main() {
+    double a[100], p[100];
+    int n = leerTamano();
+    leerVector(a, n);
+
+    promediosDeTres(a, n, p);
+
+    cout << "\nVector A: ";
+    mostrarVector(a, n);
+    cout << "Promedios de tres consecutivos (" << n - 2 << " valores): ";
+    mostrarVector(p, n - 2);
+
+    return 0;
+}
+
+// Aqui el minimo es 3 porque hacen falta al menos tres elementos
+int leerTamano() {
+    int n;
+    do {
+        cout << "Cantidad de elementos (3 a 100): ";
+        cin >> n;
+        if (n < 3 || n > 100) {
+            cout << "Cantidad no valida, intente de nuevo." << endl;
+        }
+    } while (n < 3 || n > 100);
+    return n;
+}
+
+void leerVector(double a[], int n) {
+    for (int i = 0; i < n; i++) {
+        cout << "A[" << i << "]: ";
+        cin >> a[i];
+    }
+}
+
+void mostrarVector(double v[], int n) {
+    for (int i = 0; i < n; i++) {
+        cout << v[i] << " ";
+    }
+    cout << endl;
+}
+
+// Se generan n-2 promedios, uno por cada grupo de tres
+void promediosDeTres(double a[], int n, double p[]) {
+    for (int i = 0; i < n - 2; i++) {
+        p[i] = (a[i] + a[i + 1] + a[i + 2]) / 3;
+    }
+}
