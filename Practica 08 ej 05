@@ -1,0 +1,60 @@
+#include <iostream>
+using namespace std;
+
+int leerTamano();
+void leerVector(int v[], int n);
+void mostrarVector(int v[], int n);
+bool esCapicua(int v[], int n);
+
+int main() {
+    int v[100];
+    int n = leerTamano();
+    leerVector(v, n);
+
+    cout << "\nVector: ";
+    mostrarVector(v, n);
+
+    if (esCapicua(v, n)) {
+        cout << "El vector SI es capicua." << endl;
+    } else {
+        cout << "El vector NO es capicua." << endl;
+    }
+
+    return 0;
+}
+
+int leerTamano() {
+    int n;
+    do {
+        cout << "Cantidad de elementos (1 a 100): ";
+        cin >> n;
+        if (n < 1 || n > 100) {
+            cout << "Cantidad no valida, intente de nuevo." << endl;
+        }
+    } while (n < 1 || n > 100);
+    return n;
+}
+
+void leerVector(int v[], int n) {
+    for (int i = 0; i < n; i++) {
+        cout << "Elemento [" << i << "]: ";
+        cin >> v[i];
+    }
+}
+
+void mostrarVector(int v[], int n) {
+    for (int i = 0; i < n; i++) {
+        cout << v[i] << " ";
+    }
+    cout << endl;
+}
+
+// Compara cada elemento con su opuesto; solo hace falta llegar a la mitad
+bool esCapicua(int v[], int n) {
+    for (int i = 0; i < n / 2; i++) {
+        if (v[i] != v[n - 1 - i]) {
+            return false;
+        }
+    }
+    return true;
+}
