@@ -1,0 +1,19 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    float x, s = 0, pot = 1;
+    cout << "Ingrese el valor de X: ";
+    cin >> x;
+    cout << "Ingrese el valor de N: ";
+    cin >> n;
+    
+    for (int i = 1; i <= n; i++) {
+        pot = pot * x;
+        s = s + pot;
+    }
+    
+    cout << "La suma de la serie es: " << s << endl;
+    return 0;
+}
