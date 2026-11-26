@@ -1,0 +1,27 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int n, d, total = 0, may5 = 0, apps = 0;
+    float prom;
+    cout << "Ingrese el registro de horas (numero): ";
+    cin >> n;
+    
+    while (n > 0) {
+        d = n % 10;
+        total = total + d;
+        apps++;
+        if (d > 5) {
+            may5++;
+        }
+        n = n / 10;
+    }
+    
+    prom = (float)total / apps;
+    
+    cout << "Total de horas: " << total << endl;
+    cout << "Apps que superan 5 horas: " << may5 << endl;
+    cout << "Promedio de uso: " << prom << " horas" << endl;
+    
+    return 0;
+}
