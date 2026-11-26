@@ -1,0 +1,30 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+void cuadratica(float a, float b, float c) {
+    if (a == 0) {
+        cout << "No es una ecuacion cuadratica." << endl;
+        return;
+    }
+    float d = b * b - 4 * a * c;
+    if (d > 0) {
+        cout << "Dos raices reales: x1 = " << (-b + sqrt(d)) / (2 * a)
+             << ", x2 = " << (-b - sqrt(d)) / (2 * a) << endl;
+    } else if (d == 0) {
+        cout << "Una raiz doble: x = " << -b / (2 * a) << endl;
+    } else {
+        float real = -b / (2 * a);
+        float imag = sqrt(-d) / (2 * a);
+        cout << "Dos raices complejas: " << real << " + " << imag << "i y "
+             << real << " - " << imag << "i" << endl;
+    }
+}
+
+int main() {
+    float a, b, c;
+    cout << "Ingrese a, b, c: ";
+    cin >> a >> b >> c;
+    cuadratica(a, b, c);
+    return 0;
+}
