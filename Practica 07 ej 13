@@ -1,0 +1,27 @@
+#include <iostream>
+using namespace std;
+
+double redondear(double r, int n) {
+    double factor = 1.0;
+    for (int i = 0; i < n; i++) {
+        factor = factor * 10.0;
+    }
+
+    double temp = r * factor;
+    if (temp >= 0) {
+        temp = (int)(temp + 0.5);
+    } else {
+        temp = (int)(temp - 0.5);
+    }
+
+    return temp / factor;
+}
+
+int main() {
+    double num;
+    int dec;
+    cout << "Ingrese el numero real y la cantidad de decimales: ";
+    cin >> num >> dec;
+    cout << "Resultado: " << redondear(num, dec) << endl;
+    return 0;
+}
