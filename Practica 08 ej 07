@@ -1,0 +1,40 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+int leerNumero();
+string convertirALetras(int numero);
+void mostrarResultado(int numero, string letras);
+
+int main() {
+    int numero = leerNumero();
+    string letras = convertirALetras(numero);
+    mostrarResultado(numero, letras);
+
+    return 0;
+}
+
+int leerNumero() {
+    int numero;
+    do {
+        cout << "Ingrese un numero entre 0 y 20: ";
+        cin >> numero;
+        if (numero < 0 || numero > 20) {
+            cout << "Numero fuera de rango, intente de nuevo." << endl;
+        }
+    } while (numero < 0 || numero > 20);
+    return numero;
+}
+
+// El indice del vector coincide con el numero que se quiere convertir
+string convertirALetras(int numero) {
+    string letras[21] = {"CERO", "UNO", "DOS", "TRES", "CUATRO", "CINCO",
+                         "SEIS", "SIETE", "OCHO", "NUEVE", "DIEZ", "ONCE",
+                         "DOCE", "TRECE", "CATORCE", "QUINCE", "DIECISEIS",
+                         "DIECISIETE", "DIECIOCHO", "DIECINUEVE", "VEINTE"};
+    return letras[numero];
+}
+
+void mostrarResultado(int numero, string letras) {
+    cout << numero << " -> " << letras << endl;
+}
