@@ -1,0 +1,38 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+void ecuacionCompleta(float a, float b, float c) {
+    if (a == 0) {
+        if (b != 0) {
+            cout << "Ecuacion lineal. x = " << -c / b << endl;
+        } else {
+            cout << "No es una ecuacion valida." << endl;
+        }
+    } else {
+        float d = (b * b) - (4 * a * c);
+        if (d > 0) {
+            float x1 = (-b + sqrt(d)) / (2 * a);
+            float x2 = (-b - sqrt(d)) / (2 * a);
+            cout << "Dos raices reales: x1 = " << x1 << ", x2 = " << x2 << endl;
+        } else if (d == 0) {
+            float x = -b / (2 * a);
+            cout << "Una raiz real doble: x = " << x << endl;
+        } else {
+            float real = -b / (2 * a);
+            float imag = sqrt(-d) / (2 * a);
+            cout << "Raices complejas:" << endl;
+            cout << "x1 = " << real << " + " << imag << "i" << endl;
+            cout << "x2 = " << real << " - " << imag << "i" << endl;
+        }
+    }
+}
+
+int main() {
+    float a, b, c;
+    cout << "Ingrese a, b y c: ";
+    cin >> a >> b >> c;
+    
+    ecuacionCompleta(a, b, c);
+    return 0;
+}
