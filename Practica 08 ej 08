@@ -1,0 +1,72 @@
+#include <iostream>
+using namespace std;
+
+int leerTamano();
+void leerVector(double a[], int n);
+void mostrarVector(double v[], int n);
+double valorAbsoluto(double x);
+double mayorDiferencia(double a[], int n, int &pos);
+
+int main() {
+    double a[100];
+    int n = leerTamano();
+    leerVector(a, n);
+
+    cout << "\nVector: ";
+    mostrarVector(a, n);
+
+    int pos;
+    double dif = mayorDiferencia(a, n, pos);
+
+    cout << "La mayor diferencia es: " << dif << endl;
+    cout << "La producen los elementos " << a[pos] << " y " << a[pos + 1] << endl;
+
+    return 0;
+}
+
+int leerTamano() {
+    int n;
+    do {
+        cout << "Cantidad de elementos (2 a 100): ";
+        cin >> n;
+        if (n < 2 || n > 100) {
+            cout << "Cantidad no valida, intente de nuevo." << endl;
+        }
+    } while (n < 2 || n > 100);
+    return n;
+}
+
+void leerVector(double a[], int n) {
+    for (int i = 0; i < n; i++) {
+        cout << "A[" << i << "]: ";
+        cin >> a[i];
+    }
+}
+
+void mostrarVector(double v[], int n) {
+    for (int i = 0; i < n; i++) {
+        cout << v[i] << " ";
+    }
+    cout << endl;
+}
+
+double valorAbsoluto(double x) {
+    if (x < 0) {
+        return -x;
+    }
+    return x;
+}
+
+// Devuelve la mayor diferencia y, por referencia, la posicion del primer elemento del par
+double mayorDiferencia(double a[], int n, int &pos) {
+    double mayor = valorAbsoluto(a[1] - a[0]);
+    pos = 0;
+    for (int i = 1; i < n - 1; i++) {
+        double dif = valorAbsoluto(a[i + 1] - a[i]);
+        if (dif > mayor) {
+            mayor = dif;
+            pos = i;
+        }
+    }
+    return mayor;
+}
