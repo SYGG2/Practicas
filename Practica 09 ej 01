@@ -1,0 +1,502 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+void mostrarMenu();
+int leerEntero(string mensaje);
+string leerTexto(string mensaje);
+string leerNombre(string etiqueta);
+bool listaVacia(int total);
+void registrarReserva(string &nombre, string &apellido, int &habitacion, int &nochesReserva);
+void mostrarReserva(string nombre, string apellido, int habitacion, int nochesReserva);
+void registrarReservas(string nombres[], string apellidos[], int habitaciones[], int noches[], int &total);
+void mostrarReservas(string nombres[], string apellidos[], int habitaciones[], int noches[], int total);
+void buscarHuespedes(string nombres[], string apellidos[], int habitaciones[], int noches[], int total);
+int buscarHabitacion(int habitaciones[], int total, int habitacion);
+int buscarReserva(string nombres[], string apellidos[], int habitaciones[], int total, int habitacion, string nombre, string apellido);
+int pedirReserva(string nombres[], string apellidos[], int habitaciones[], int total);
+void actualizarNoches(string nombres[], string apellidos[], int habitaciones[], int noches[], int total);
+void reducirNoches(string nombres[], string apellidos[], int habitaciones[], int noches[], int total);
+void ampliarReserva(string nombres[], int habitaciones[], int noches[], int total);
+string generarCodigo(string nombre, string apellido, int habitacion);
+void mostrarCodigos(string nombres[], string apellidos[], int habitaciones[], int total);
+void buscarPorApellido(string nombres[], string apellidos[], int habitaciones[], int noches[], int total);
+void corregirNombre(string &nombre);
+void agregarPrefijo(string &nombre);
+void quitarPrefijo(string &nombre);
+void corregirReserva(string nombres[], int habitaciones[], int total);
+void mostrarResumen(string nombres[], string apellidos[], int habitaciones[], int noches[], int total);
+
+int main() {
+    string nombres[20];
+    string apellidos[20];
+    int habitaciones[20];
+    int noches[20];
+    int total = 0;
+    int opcion;
+
+    do {
+        mostrarMenu();
+        opcion = leerEntero("Opcion: ");
+        cout << endl;
+
+        switch (opcion) {
+            case 1:
+                registrarReservas(nombres, apellidos, habitaciones, noches, total);
+                break;
+            case 2:
+                mostrarReservas(nombres, apellidos, habitaciones, noches, total);
+                break;
+            case 3:
+                buscarHuespedes(nombres, apellidos, habitaciones, noches, total);
+                break;
+            case 4:
+                actualizarNoches(nombres, apellidos, habitaciones, noches, total);
+                break;
+            case 5:
+                reducirNoches(nombres, apellidos, habitaciones, noches, total);
+                break;
+            case 6:
+                ampliarReserva(nombres, habitaciones, noches, total);
+                break;
+            case 7:
+                mostrarCodigos(nombres, apellidos, habitaciones, total);
+                break;
+            case 8:
+                buscarPorApellido(nombres, apellidos, habitaciones, noches, total);
+                break;
+            case 9:
+                corregirReserva(nombres, habitaciones, total);
+                break;
+            case 10:
+                mostrarResumen(nombres, apellidos, habitaciones, noches, total);
+                break;
+            case 11:
+                cout << "Fin del programa." << endl;
+                break;
+            default:
+                cout << "Esa opcion no existe, elija de 1 a 11." << endl;
+        }
+    } while (opcion != 11);
+
+    return 0;
+}
+
+void mostrarMenu() {
+    cout << "\n===== HOTEL - RESERVAS =====" << endl;
+    cout << " 1. Registrar reservas" << endl;
+    cout << " 2. Listar reservas" << endl;
+    cout << " 3. Buscar huespedes por nombre" << endl;
+    cout << " 4. Actualizar noches" << endl;
+    cout << " 5. Salida anticipada" << endl;
+    cout << " 6. Ampliar reserva" << endl;
+    cout << " 7. Codigos de reserva" << endl;
+    cout << " 8. Consultar por apellido" << endl;
+    cout << " 9. Corregir nombre de un huesped" << endl;
+    cout << "10. Resumen" << endl;
+    cout << "11. Salir" << endl;
+}
+
+int leerEntero(string mensaje) {
+    int valor;
+    cout << mensaje;
+    while (!(cin >> valor)) {
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout << "Eso no es un numero. " << mensaje;
+    }
+    cin.ignore(1000, '\n');
+    return valor;
+}
+
+string leerTexto(string mensaje) {
+    string texto;
+    cout << mensaje;
+    getline(cin, texto);
+    return texto;
+}
+
+string leerNombre(string etiqueta) {
+    string texto;
+    bool correcto = false;
+
+    while (!correcto) {
+        texto = leerTexto(etiqueta);
+        if (texto.empty()) {
+            cout << "No puede quedar vacio." << endl;
+        } else if (texto.length() < 3) {
+            cout << "Debe tener al menos 3 caracteres." << endl;
+        } else {
+            correcto = true;
+        }
+    }
+    return texto;
+}
+
+bool listaVacia(int total) {
+    if (total == 0) {
+        cout << "Todavia no hay reservas registradas." << endl;
+        return true;
+    }
+    return false;
+}
+
+void registrarReserva(string &nombre, string &apellido, int &habitacion, int &nochesReserva) {
+    nombre = leerNombre("Nombre: ");
+    apellido = leerNombre("Apellido: ");
+
+    do {
+        habitacion = leerEntero("Numero de habitacion: ");
+        if (habitacion <= 0) {
+            cout << "La habitacion debe ser un numero positivo." << endl;
+        }
+    } while (habitacion <= 0);
+
+    do {
+        nochesReserva = leerEntero("Noches reservadas: ");
+        if (nochesReserva <= 0) {
+            cout << "Las noches deben ser mayores que cero." << endl;
+        }
+    } while (nochesReserva <= 0);
+}
+
+void mostrarReserva(string nombre, string apellido, int habitacion, int nochesReserva) {
+    cout << nombre << " " << apellido << " | Habitacion " << habitacion
+         << " | " << nochesReserva << " noche(s)" << endl;
+}
+
+void registrarReservas(string nombres[], string apellidos[], int habitaciones[], int noches[], int &total) {
+    int libres = 20 - total;
+    if (libres == 0) {
+        cout << "El hotel ya tiene las 20 reservas permitidas." << endl;
+        return;
+    }
+
+    int cantidad;
+    do {
+        cantidad = leerEntero("Cuantas reservas va a registrar (1 a " + to_string(libres) + "): ");
+        if (cantidad < 1 || cantidad > libres) {
+            cout << "Cantidad no valida." << endl;
+        }
+    } while (cantidad < 1 || cantidad > libres);
+
+    for (int i = 0; i < cantidad; i++) {
+        string nombre, apellido;
+        int habitacion, nochesReserva;
+        bool repetida;
+
+        cout << "\nReserva " << i + 1 << " de " << cantidad << endl;
+        do {
+            registrarReserva(nombre, apellido, habitacion, nochesReserva);
+            repetida = buscarHabitacion(habitaciones, total, habitacion) != -1;
+            if (repetida) {
+                cout << "La habitacion " << habitacion << " ya tiene una reserva activa, ingrese los datos otra vez." << endl;
+            }
+        } while (repetida);
+
+        nombres[total] = nombre;
+        apellidos[total] = apellido;
+        habitaciones[total] = habitacion;
+        noches[total] = nochesReserva;
+        total++;
+
+        cout << "Reserva guardada: ";
+        mostrarReserva(nombre, apellido, habitacion, nochesReserva);
+    }
+}
+
+void mostrarReservas(string nombres[], string apellidos[], int habitaciones[], int noches[], int total) {
+    if (listaVacia(total)) {
+        return;
+    }
+    cout << "--- Reservas activas ---" << endl;
+    for (int i = 0; i < total; i++) {
+        cout << "[" << i << "] ";
+        mostrarReserva(nombres[i], apellidos[i], habitaciones[i], noches[i]);
+    }
+}
+
+void buscarHuespedes(string nombres[], string apellidos[], int habitaciones[], int noches[], int total) {
+    if (listaVacia(total)) {
+        return;
+    }
+
+    string parte = leerTexto("Parte del nombre a buscar: ");
+    if (parte.empty()) {
+        cout << "Tiene que escribir algo para buscar." << endl;
+        return;
+    }
+
+    int encontrados = 0;
+    for (int i = 0; i < total; i++) {
+        if (nombres[i].find(parte) != string::npos) {
+            cout << "[" << i << "] " << nombres[i] << " | Apellido: " << apellidos[i]
+                 << " | Habitacion " << habitaciones[i] << " | " << noches[i] << " noche(s)" << endl;
+            encontrados++;
+        }
+    }
+
+    if (encontrados == 0) {
+        cout << "No se encontro ningun huesped con \"" << parte << "\"." << endl;
+    }
+}
+
+int buscarHabitacion(int habitaciones[], int total, int habitacion) {
+    for (int i = 0; i < total; i++) {
+        if (habitaciones[i] == habitacion) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+int buscarReserva(string nombres[], string apellidos[], int habitaciones[], int total, int habitacion, string nombre, string apellido) {
+    int pos = buscarHabitacion(habitaciones, total, habitacion);
+    if (pos == -1) {
+        return -1;
+    }
+    if (nombres[pos].compare(nombre) == 0 && apellidos[pos].compare(apellido) == 0) {
+        return pos;
+    }
+    return -1;
+}
+
+int pedirReserva(string nombres[], string apellidos[], int habitaciones[], int total) {
+    int habitacion = leerEntero("Numero de habitacion: ");
+    string nombre = leerTexto("Nombre del huesped: ");
+    string apellido = leerTexto("Apellido del huesped: ");
+
+    int pos = buscarReserva(nombres, apellidos, habitaciones, total, habitacion, nombre, apellido);
+    if (pos == -1) {
+        cout << "No existe una reserva con esos datos." << endl;
+    }
+    return pos;
+}
+
+void actualizarNoches(string nombres[], string apellidos[], int habitaciones[], int noches[], int total) {
+    if (listaVacia(total)) {
+        return;
+    }
+
+    int pos = pedirReserva(nombres, apellidos, habitaciones, total);
+    if (pos == -1) {
+        return;
+    }
+
+    int nuevas = leerEntero("Nueva cantidad de noches: ");
+    if (nuevas <= 0) {
+        cout << "Las noches deben ser mayores que cero, no se cambio nada." << endl;
+        return;
+    }
+
+    int anteriores = noches[pos];
+    noches[pos] = nuevas;
+    cout << "Habitacion " << habitaciones[pos] << ": de " << anteriores << " a " << nuevas << " noche(s)." << endl;
+}
+
+void reducirNoches(string nombres[], string apellidos[], int habitaciones[], int noches[], int total) {
+    if (listaVacia(total)) {
+        return;
+    }
+
+    int pos = pedirReserva(nombres, apellidos, habitaciones, total);
+    if (pos == -1) {
+        return;
+    }
+
+    int reduccion = leerEntero("Noches a reducir: ");
+    if (reduccion <= 0) {
+        cout << "La reduccion debe ser mayor que cero, no se cambio nada." << endl;
+    } else if (reduccion >= noches[pos]) {
+        cout << "Solo se pueden reducir menos de " << noches[pos] << " noches, no se cambio nada." << endl;
+    } else {
+        int anteriores = noches[pos];
+        noches[pos] = noches[pos] - reduccion;
+        cout << "Salida anticipada registrada: " << anteriores << " - " << reduccion
+             << " = " << noches[pos] << " noche(s)." << endl;
+    }
+}
+
+void ampliarReserva(string nombres[], int habitaciones[], int noches[], int total) {
+    if (listaVacia(total)) {
+        return;
+    }
+
+    int habitacion = leerEntero("Numero de habitacion: ");
+    string parte = leerTexto("Nombre del huesped (o una parte): ");
+
+    int pos = buscarHabitacion(habitaciones, total, habitacion);
+    if (pos == -1) {
+        cout << "No hay ninguna reserva en la habitacion " << habitacion << "." << endl;
+        return;
+    }
+    if (parte.empty() || nombres[pos].find(parte) == string::npos) {
+        cout << "El nombre no coincide con el huesped de esa habitacion." << endl;
+        return;
+    }
+
+    int extra = leerEntero("Noches a agregar: ");
+    if (extra <= 0) {
+        cout << "Las noches a agregar deben ser mayores que cero." << endl;
+        return;
+    }
+
+    int anteriores = noches[pos];
+    noches[pos] = noches[pos] + extra;
+    cout << "Reserva ampliada: " << anteriores << " + " << extra << " = " << noches[pos] << " noche(s)." << endl;
+}
+
+string generarCodigo(string nombre, string apellido, int habitacion) {
+    string codigo = "";
+
+    if (nombre.length() >= 3) {
+        codigo = codigo + nombre.substr(0, 3);
+    } else {
+        codigo = codigo + nombre;
+    }
+
+    if (apellido.length() >= 3) {
+        codigo = codigo + apellido.substr(0, 3);
+    } else {
+        codigo = codigo + apellido;
+    }
+
+    codigo.append(to_string(habitacion));
+    return codigo;
+}
+
+void mostrarCodigos(string nombres[], string apellidos[], int habitaciones[], int total) {
+    if (listaVacia(total)) {
+        return;
+    }
+    cout << "--- Codigos de reserva ---" << endl;
+    for (int i = 0; i < total; i++) {
+        cout << nombres[i] << " " << apellidos[i] << " -> "
+             << generarCodigo(nombres[i], apellidos[i], habitaciones[i]) << endl;
+    }
+}
+
+void buscarPorApellido(string nombres[], string apellidos[], int habitaciones[], int noches[], int total) {
+    if (listaVacia(total)) {
+        return;
+    }
+
+    string apellido = leerTexto("Apellido a consultar: ");
+    int encontradas = 0;
+
+    for (int i = 0; i < total; i++) {
+        if (apellidos[i].compare(apellido) == 0) {
+            cout << "[" << i << "] ";
+            mostrarReserva(nombres[i], apellidos[i], habitaciones[i], noches[i]);
+            encontradas++;
+        }
+    }
+
+    if (encontradas == 0) {
+        cout << "No hay reservas con el apellido \"" << apellido << "\"." << endl;
+    } else {
+        cout << "Reservas encontradas: " << encontradas << endl;
+    }
+}
+
+void corregirNombre(string &nombre) {
+    string fragmento = leerTexto("Fragmento que quiere cambiar: ");
+    if (fragmento.empty()) {
+        cout << "El fragmento no puede estar vacio." << endl;
+        return;
+    }
+
+    size_t pos = nombre.find(fragmento);
+    if (pos == string::npos) {
+        cout << "Ese fragmento no aparece en el nombre." << endl;
+        return;
+    }
+
+    string nuevo = leerTexto("Texto que lo reemplaza: ");
+    string copia = nombre;
+    copia.replace(pos, fragmento.length(), nuevo);
+
+    if (copia.length() < 3) {
+        cout << "El nombre quedaria con menos de 3 caracteres, no se cambio nada." << endl;
+        return;
+    }
+    nombre = copia;
+}
+
+void agregarPrefijo(string &nombre) {
+    if (nombre.find("Sr-") == 0) {
+        cout << "El nombre ya tiene el prefijo Sr-." << endl;
+        return;
+    }
+    nombre.insert(0, "Sr-");
+}
+
+void quitarPrefijo(string &nombre) {
+    if (nombre.find("Sr-") != 0) {
+        cout << "El nombre no tiene el prefijo Sr-." << endl;
+        return;
+    }
+    if (nombre.length() - 3 < 3) {
+        cout << "Sin el prefijo el nombre quedaria con menos de 3 caracteres." << endl;
+        return;
+    }
+    nombre.erase(0, 3);
+}
+
+void corregirReserva(string nombres[], int habitaciones[], int total) {
+    if (listaVacia(total)) {
+        return;
+    }
+
+    int habitacion = leerEntero("Habitacion de la reserva a corregir: ");
+    int pos = buscarHabitacion(habitaciones, total, habitacion);
+    if (pos == -1) {
+        cout << "No hay ninguna reserva en la habitacion " << habitacion << "." << endl;
+        return;
+    }
+
+    string antes = nombres[pos];
+    cout << "Nombre actual: " << antes << endl;
+    cout << "1. Reemplazar un fragmento" << endl;
+    cout << "2. Agregar prefijo Sr-" << endl;
+    cout << "3. Quitar prefijo Sr-" << endl;
+    int opcion = leerEntero("Elija: ");
+
+    switch (opcion) {
+        case 1:
+            corregirNombre(nombres[pos]);
+            break;
+        case 2:
+            agregarPrefijo(nombres[pos]);
+            break;
+        case 3:
+            quitarPrefijo(nombres[pos]);
+            break;
+        default:
+            cout << "Opcion no valida." << endl;
+            return;
+    }
+
+    cout << "Antes: " << antes << " | Despues: " << nombres[pos] << endl;
+}
+
+void mostrarResumen(string nombres[], string apellidos[], int habitaciones[], int noches[], int total) {
+    if (listaVacia(total)) {
+        return;
+    }
+
+    int totalNoches = 0;
+    int mayor = 0;
+    for (int i = 0; i < total; i++) {
+        totalNoches = totalNoches + noches[i];
+        if (noches[i] > noches[mayor]) {
+            mayor = i;
+        }
+    }
+
+    cout << "--- Resumen ---" << endl;
+    cout << "Total de reservas: " << total << endl;
+    cout << "Total de noches: " << totalNoches << endl;
+    cout << "Reserva de mayor duracion: ";
+    mostrarReserva(nombres[mayor], apellidos[mayor], habitaciones[mayor], noches[mayor]);
+}
