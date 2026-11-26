@@ -1,0 +1,45 @@
+#include <iostream>
+using namespace std;
+
+float calcularNotaFinal(float p1, float p2, float ep, float ef, int faltas) {
+    float maxFaltas = 48 * 0.20;
+    if (faltas > maxFaltas) {
+        ef = 0;
+    }
+    float promParciales = (p1 + p2) / 2.0;
+    float nf = (promParciales * 0.40) + (ep * 0.20) + (ef * 0.40);
+    return nf;
+}
+
+int main() {
+    float p1, p2, ep, ef, nf;
+    int faltas;
+    char resp;
+    
+    do {
+        cout << "\nIngrese nota Primer Parcial: ";
+        cin >> p1;
+        cout << "Ingrese nota Segundo Parcial: ";
+        cin >> p2;
+        cout << "Ingrese nota Examen Practico: ";
+        cin >> ep;
+        cout << "Ingrese nota Examen Final: ";
+        cin >> ef;
+        cout << "Ingrese numero de faltas: ";
+        cin >> faltas;
+        
+        nf = calcularNotaFinal(p1, p2, ep, ef, faltas);
+        cout << "Nota Final: " << nf << endl;
+        
+        if (nf >= 51) {
+            cout << "Estado: APROBADO" << endl;
+        } else {
+            cout << "Estado: REPROBADO" << endl;
+        }
+        
+        cout << "\nDesea calcular otro alumno? (s/n): ";
+        cin >> resp;
+    } while (resp == 's' || resp == 'S');
+    
+    return 0;
+}
