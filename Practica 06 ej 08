@@ -1,0 +1,33 @@
+#include <iostream>
+using namespace std;
+
+void mostrarFactura(int c1, int c2, int c3, int c4) {
+    float p1 = c1 * 3.0;
+    float p2 = c2 * 5.0;
+    float p3 = c3 * 2.0;
+    float p4 = c4 * 2.5;
+    int cantTotal = c1 + c2 + c3 + c4;
+    float total = p1 + p2 + p3 + p4;
+    
+    cout << "\nITEM\t\t\tCANTIDAD\tTOTAL PARCIAL" << endl;
+    cout << "Hamburguesas (3Bs)\t" << c1 << "\t\t" << p1 << endl;
+    cout << "Hamburguesas queso(5Bs)\t" << c2 << "\t\t" << p2 << endl;
+    cout << "Papas fritas (2Bs)\t" << c3 << "\t\t" << p3 << endl;
+    cout << "Soda (2.5Bs)\t\t" << c4 << "\t\t" << p4 << endl;
+    cout << "T O T A L\t\t" << cantTotal << "\t\t" << total << endl;
+}
+
+int main() {
+    int c1, c2, c3, c4;
+    cout << "Cantidad de Hamburguesas: ";
+    cin >> c1;
+    cout << "Cantidad de Hamburguesas con queso: ";
+    cin >> c2;
+    cout << "Cantidad de Papas fritas: ";
+    cin >> c3;
+    cout << "Cantidad de Sodas: ";
+    cin >> c4;
+    
+    mostrarFactura(c1, c2, c3, c4);
+    return 0;
+}
