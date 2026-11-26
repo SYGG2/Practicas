@@ -1,0 +1,19 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int n, d, cont = 0;
+    cout << "Ingrese un numero: ";
+    cin >> n;
+    
+    while (n > 0) {
+        d = n % 10;
+        if (d % 2 == 0) {
+            cont++;
+        }
+        n = n / 10;
+    }
+    
+    cout << "Cantidad de digitos pares: " << cont << endl;
+    return 0;
+}
