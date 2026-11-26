@@ -1,0 +1,26 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int pin, d, ant = -1, digitos = 0, repetido = 0;
+    cout << "Ingrese su PIN de 4 digitos: ";
+    cin >> pin;
+    
+    while (pin > 0) {
+        d = pin % 10;
+        if (d == ant) {
+            repetido = 1;
+        }
+        ant = d;
+        digitos++;
+        pin = pin / 10;
+    }
+    
+    if (digitos == 4 && repetido == 0) {
+        cout << "PIN valido." << endl;
+    } else {
+        cout << "PIN invalido." << endl;
+    }
+    
+    return 0;
+}
